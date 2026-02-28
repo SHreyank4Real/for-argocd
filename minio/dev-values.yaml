@@ -1,10 +1,6 @@
-# Single-pod distributed MinIO (StatefulSet)
-mode: distributed
-
-# One pod only
-pools: 1
-replicas: 1
-drivesPerNode: 1
+# Single-pod standalone MinIO (Deployment)
+# Distributed mode requires 4+ nodes for erasure coding; use standalone for single-node
+mode: standalone
 
 # Resource sizing for t3a.medium
 resources:
