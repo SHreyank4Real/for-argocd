@@ -60,5 +60,6 @@ consoleIngress:
 # Optional: smaller disk for dev (adjust as needed)
 persistence:
   enabled: true
-  size: 100Gi
+  storageClass: gp2
+  size: 50Gi
   accessMode: ReadWriteOnce
