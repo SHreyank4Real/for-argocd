@@ -1,48 +1,64 @@
-minio:
-  mode: standalone
-  replicas: 1
-  rootUser: "minioadmin"
-  rootPassword: "changeme123"
+# Single-pod distributed MinIO (StatefulSet)
+mode: distributed
 
-  persistence:
-    enabled: true
-    size: 20Gi
+# One pod only
+pools: 1
+replicas: 1
+drivesPerNode: 1
 
-  resources:
-    requests:
-      memory: 512Mi
-      cpu: 250m
-    limits:
-      memory: 1Gi
-      cpu: 500m
+# Resource sizing for t3a.medium
+resources:
+  requests:
+    cpu: "500m"
+    memory: "2Gi"
+  limits:
+    cpu: "1500m"
+    memory: "3Gi"
 
-  ingress:
-    enabled: true
-    ingressClassName: nginx
-    annotations:
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
-      nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    hosts:
-      - api.211125781340.realhandsonlabs.net
-    tls:
-      - secretName: minio-tls
-        hosts:
-          - api.211125781340.realhandsonlabs.net
+# Keep MinIO itself on HTTP; TLS handled by ingress-nginx
+tls:
+  enabled: false
 
-  consoleIngress:
-    enabled: true
-    ingressClassName: nginx
-    annotations:
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    hosts:
-      - minio.211125781340.realhandsonlabs.net
-    tls:
-      - secretName: minio-console-tls
-        hosts:
-          - minio.211125781340.realhandsonlabs.net
+# S3 API ingress (api.211125781340.realhandsonlabs.net)
+service:
+  type: ClusterIP
+  port: "9000"
 
-  environment:
-    MINIO_BROWSER_REDIRECT_URL: "https://minio.211125781340.realhandsonlabs.net"
-    MINIO_DOMAIN: "api.211125781340.realhandsonlabs.net"
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - api.211125781340.realhandsonlabs.net
+  tls:
+    - secretName: minio-api-tls
+      hosts:
+        - api.211125781340.realhandsonlabs.net
+
+# Console UI ingress (minio.211125781340.realhandsonlabs.net)
+consoleService:
+  type: ClusterIP
+  port: "9001"
+
+consoleIngress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - minio.211125781340.realhandsonlabs.net
+  tls:
+    - secretName: minio-console-tls
+      hosts:
+        - minio.211125781340.realhandsonlabs.net
+
+# Optional: smaller disk for dev (adjust as needed)
+persistence:
+  enabled: true
+  size: 100Gi
+  accessMode: ReadWriteOnce
