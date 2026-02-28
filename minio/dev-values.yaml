@@ -1,0 +1,48 @@
+minio:
+  mode: standalone
+
+  rootUser: "minioadmin"
+  rootPassword: "changeme123"
+
+  persistence:
+    enabled: true
+    size: 20Gi
+
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: 250m
+    limits:
+      memory: 2Gi
+      cpu: 500m
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    hosts:
+      - api.211125781340.realhandsonlabs.net
+    tls:
+      - secretName: minio-tls
+        hosts:
+          - api.211125781340.realhandsonlabs.net
+
+  consoleIngress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - minio.211125781340.realhandsonlabs.net
+    tls:
+      - secretName: minio-console-tls
+        hosts:
+          - minio.211125781340.realhandsonlabs.net
+
+  environment:
+    MINIO_BROWSER_REDIRECT_URL: "https://minio.211125781340.realhandsonlabs.net"
+    MINIO_DOMAIN: "api.211125781340.realhandsonlabs.net"
