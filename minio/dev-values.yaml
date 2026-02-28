@@ -1,6 +1,6 @@
 minio:
   mode: standalone
-
+  replicas: 1
   rootUser: "minioadmin"
   rootPassword: "changeme123"
 
@@ -10,10 +10,10 @@ minio:
 
   resources:
     requests:
-      memory: 1Gi
+      memory: 512Mi
       cpu: 250m
     limits:
-      memory: 2Gi
+      memory: 1Gi
       cpu: 500m
 
   ingress:
