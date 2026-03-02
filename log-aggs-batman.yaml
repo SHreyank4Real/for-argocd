@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: batman
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:SHreyank4Real/for-argocd.git
+    targetRevision: main
+    path: loggenerator
+    helm:
+      valueFiles:
+        - values/batman.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: minio
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
