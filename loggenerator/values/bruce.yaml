@@ -1,0 +1,14 @@
+name: bruce
+namespace: bruce
+
+replicaCount: 1
+
+image: shreyanksharma/loggenerator:v1
+
+restartPolicy: Always
+
+resource:
+  memoryMax: "128Mi"
+  memoryMin: "64Mi"
+  cpuMax: "100m"
+  cpuMin: "50m"

@@ -15,7 +15,7 @@ resources:
 tls:
   enabled: false
 
-# S3 API ingress (api.211125781340.realhandsonlabs.net)
+# S3 API ingress (api.286593018001.realhandsonlabs.net)
 service:
   type: ClusterIP
   port: "9000"
@@ -28,13 +28,13 @@ ingress:
     kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-    - api.211125781340.realhandsonlabs.net
+    - api.286593018001.realhandsonlabs.net
   tls:
     - secretName: minio-api-tls
       hosts:
-        - api.211125781340.realhandsonlabs.net
+        - api.286593018001.realhandsonlabs.net
 
-# Console UI ingress (minio.211125781340.realhandsonlabs.net)
+# Console UI ingress (minio.286593018001.realhandsonlabs.net)
 consoleService:
   type: ClusterIP
   port: "9001"
@@ -47,11 +47,11 @@ consoleIngress:
     kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-    - minio.211125781340.realhandsonlabs.net
+    - minio.286593018001.realhandsonlabs.net
   tls:
     - secretName: minio-console-tls
       hosts:
-        - minio.211125781340.realhandsonlabs.net
+        - minio.286593018001.realhandsonlabs.net
 
 # Optional: smaller disk for dev (adjust as needed)
 persistence:

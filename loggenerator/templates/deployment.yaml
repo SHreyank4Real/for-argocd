@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: log-generator
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: log-generator
+  template:
+    metadata:
+      labels:
+        app: log-generator
+    spec:
+      containers:
+        - name: log-generator
+          image: {{ .Values.image }}
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: {{ .Values.resource.memoryMin }}
+              cpu: {{ .Values.resource.cpuMin }}
+            limits:
+              memory: {{ .Values.resource.memoryMax }}
+              cpu: {{ .Values.resource.cpuMax }}
+          env:
+            - name: PYTHONUNBUFFERED
+              value: "1"
+      restartPolicy: Always
