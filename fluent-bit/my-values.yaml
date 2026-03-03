@@ -17,6 +17,12 @@ env:
         name: aws-credentials
         key: AWS_SECRET_ACCESS_KEY
 
+aws:
+  credentialsSecretName: aws-credentials
+  # Fill these with your actual MinIO or AWS credentials (do not commit real secrets)
+  accessKey: "AKIATCKAP4YWSQDG5LPV"
+  secretKey: "EY45UdIhKHW4ypBXGkxxQyUHRX1ilnoxfT7A6tq2"
+
 extraVolumes:
   - name: buffer
     emptyDir: {}

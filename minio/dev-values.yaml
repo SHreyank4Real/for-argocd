@@ -59,3 +59,10 @@ persistence:
   storageClass: gp2
   size: 50Gi
   accessMode: ReadWriteOnce
+
+# Buckets to create automatically for dev
+buckets:
+  - name: my-redis-logs-bucket
+    policy: none
+    purge: false
+    versioning: false
