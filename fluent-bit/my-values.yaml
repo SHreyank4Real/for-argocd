@@ -21,7 +21,7 @@ aws:
   credentialsSecretName: aws-credentials
   # Fill these with your actual MinIO or AWS credentials (do not commit real secrets)
   accessKey: "AKIATCKAP4YWSQDG5LPV"
-  secretKey: "EY45UdIhKHW4ypBXGkxxQyUHRX1ilnoxfT7A6tq2"
+  secretKey: "EY45UdIhKHW4ypBXGkxxQyUHRX1ilnoxfT7A6tq2s"
 
 extraVolumes:
   - name: buffer
@@ -63,7 +63,7 @@ config:
     [FILTER]
         Name    grep
         Match   kube.*
-        Regex   $kubernetes['container_name'] redis
+        Regex   $kubernetes['container_name'] batman
 
   outputs: |
     [OUTPUT]
@@ -74,7 +74,7 @@ config:
         total_file_size   5M
         upload_timeout    1m
         store_dir         /buffers
-        s3_key_format     /redis-logs/%Y/%m/%d/%H/%M/%S-$UUID.gz
+        s3_key_format     /batman-logs/%Y/%m/%d/%H/%M/%S-$UUID.gz
         compression       gzip
 
   customParsers: |
