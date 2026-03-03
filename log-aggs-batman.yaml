@@ -16,7 +16,7 @@ spec:
         - values/batman.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: minio
+    namespace: batman
 
   syncPolicy:
     automated:

@@ -1,5 +1,4 @@
 name: batman
-namespace: batman
 
 replicaCount: 1
 

@@ -1,5 +1,4 @@
 name: bruce
-namespace: bruce
 
 replicaCount: 1
 

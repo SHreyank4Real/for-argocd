@@ -16,7 +16,7 @@ spec:
         - values/superman.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: minio
+    namespace: superman
 
   syncPolicy:
     automated:

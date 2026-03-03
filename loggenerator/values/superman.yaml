@@ -1,5 +1,4 @@
 name: superman
-namespace: superman
 
 replicaCount: 1
 
